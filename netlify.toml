@@ -1,2 +1,2 @@
 [build]
-command = "go run ."
+command = "go build ."
