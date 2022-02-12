@@ -1,21 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>A static website</title>
+  <head>
+    <title>GitHub Authentication Example</title>
 
-  <!-- include the widget -->
-  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-</head>
-<body>
-  <!-- Add a menu:
-   Log in / Sign up - when the user is not logged in
-   Username / Log out - when the user is logged in
-  -->
-  <div data-netlify-identity-menu></div>
+    <!-- Make sure to include Netlify's authentication library -->
+    <!-- Also available from npm as netlify-auth-providers -->
+    <script src="https://unpkg.com/netlify-auth-providers"></script>
+  </head>
+  <body>
+    <h1>GitHub Authentication Example:</h1>
+    <p><a href="#" id="login">Authenticate</a></p>
+    <p>Token: <span id="output-token">Not authenticated yet</span></p>
+    <p>
+      User emails:
+      <span id="output-email">Not authenticated yet</span>
+    </p>
 
-  <!-- Add a simpler button:
-    Simple button that will open the modal.
-  -->
-  <div data-netlify-identity-button>Login with Netlify Identity</div>
-</body>
+    <script>
+      const anchorTag = document.getElementById("login");
+      const outputToken = document.getElementById("output-token");
+      const outputEmail = document.getElementById("output-email");
+
+      anchorTag.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const authenticator = new netlify.default({});
+
+        authenticator.authenticate(
+          // Set the OAuth provider and token scope
+          // Provider can be "github", "gitlab", or "bitbucket"
+          // The scopes available depend on your OAuth provider
+          { provider: "github", scope: "user" },
+          async function (error, data) {
+            if (error) {
+              outputToken.innerText =
+                "Error Authenticating with GitHub: " + error;
+            } else {
+              outputToken.innerText =
+                "Authenticated with GitHub. Access Token: " +
+                data.token;
+              outputEmail.innerText = await loadGitHubUserEmails(
+                data.token
+              );
+            }
+          }
+        );
+      });
+
+      async function loadGitHubUserEmails(token) {
+        return await fetch("https://api.github.com/user/emails", {
+          headers: {
+            Accept: "application/vnd.github.v3+json",
+            Authorization: `token ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((response) => JSON.stringify(response));
+      }
+    </script>
+  </body>
 </html>
+
