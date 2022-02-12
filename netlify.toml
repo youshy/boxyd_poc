@@ -1,8 +1,0 @@
-[build]
-  command = "./build.sh"
-  functions = "functions"
-  publish = "public"
-
-[build.environment]
-  GO111MODULE = "on"
-
