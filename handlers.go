@@ -9,7 +9,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/boxyd/main/pkg/qrcoder"
+	"github.com/boxyd/qrcoder"
 	"github.com/gorilla/mux"
 )
 
