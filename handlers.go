@@ -36,7 +36,7 @@ func generateQR() http.Handler {
 			log.Println(err)
 			w.WriteHeader(http.StatusBadRequest)
 		}
-		path := fmt.Sprintf("%s%s", r.Host, r.URL.Path)
+		path := fmt.Sprintf("http://%s%s", r.Host, r.URL.Path)
 		log.Printf("path: %s\tboxID: %v\n", path, boxID)
 
 		label, err := qrcoder.Generate(path, "BOXYD", boxID)
