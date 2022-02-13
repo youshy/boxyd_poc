@@ -13,10 +13,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func handleSingleItem() http.Handler {
+func handleSingleItem(dir string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("path: %s\n", r.URL.Path)
-		p := fmt.Sprintf("./%s.html", r.URL.Path)
+		vars := mux.Vars(r)
+		boxID, err := strconv.Atoi(vars["box_id"])
+		if err != nil {
+			log.Println(err)
+			w.WriteHeader(http.StatusBadRequest)
+		}
+		p := fmt.Sprintf(".%s/%04d.html", dir, boxID)
+		log.Printf("path: %v\n", p)
 
 		http.ServeFile(w, r, p)
 	})
