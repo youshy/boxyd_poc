@@ -3,7 +3,7 @@ module github.com/youshy/boxyd_poc
 go 1.17
 
 require (
-	github.com/boxyd/qrcoder v0.0.0-20220213151649-feb4ae092a66
+	github.com/boxyd/qrcoder v0.0.0-20220213213805-9632a0094d79
 	github.com/gorilla/mux v1.8.0
 )
 

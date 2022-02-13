@@ -28,7 +28,7 @@ func handleSingleItem(dir string) http.Handler {
 	})
 }
 
-func generateQR() http.Handler {
+func generateQR(small bool) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		boxID, err := strconv.Atoi(vars["box_id"])
@@ -39,10 +39,15 @@ func generateQR() http.Handler {
 		path := fmt.Sprintf("http://%s%s", r.Host, r.URL.Path)
 		log.Printf("path: %s\tboxID: %v\n", path, boxID)
 
-		label, err := qrcoder.Generate(path, "BOXYD", boxID)
-		if err != nil {
-			log.Println(err)
-			w.WriteHeader(http.StatusBadRequest)
+		var label []byte
+		if small {
+			label, err = qrcoder.GenerateWithMagnitude(path, "BOXYD", boxID, 4)
+		} else {
+			label, err = qrcoder.Generate(path, "BOXYD", boxID)
+			if err != nil {
+				log.Println(err)
+				w.WriteHeader(http.StatusBadRequest)
+			}
 		}
 
 		w.Header().Set("Content-Type", "image/png")

@@ -1,5 +1,7 @@
 github.com/boxyd/qrcoder v0.0.0-20220213151649-feb4ae092a66 h1:XYxstRw8XEg1isrH23+qD7FmLzUI4IEMZKWwjUmzwnk=
 github.com/boxyd/qrcoder v0.0.0-20220213151649-feb4ae092a66/go.mod h1:F9mu3rYqB3SbtKgi8HUIQ8TYWI7YuaGDlIet3uTAUz8=
+github.com/boxyd/qrcoder v0.0.0-20220213213805-9632a0094d79 h1:v1+ywn/IdLtYUqTiIKbMJVlDmnhNp3AuFGk/HoSYQPA=
+github.com/boxyd/qrcoder v0.0.0-20220213213805-9632a0094d79/go.mod h1:F9mu3rYqB3SbtKgi8HUIQ8TYWI7YuaGDlIet3uTAUz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
