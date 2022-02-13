@@ -51,6 +51,14 @@ func generateQR() http.Handler {
 	})
 }
 
+func getInfo(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("---\nPath:\t%s%s\n\nHeader:\t%s\nUser:\t%s\nScheme:\t%s\n---\n", r.Host, r.URL.Path, r.Header, r.URL.User, r.URL.Scheme)
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func basicAuth(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		username, password, ok := r.BasicAuth()

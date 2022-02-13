@@ -13,9 +13,9 @@ func NewRouter() *mux.Router {
 
 	box := "/box"
 
-	router.Handle(box+"/{box_id}", basicAuth(handleSingleItem(box))).Methods(http.MethodGet)
+	router.Handle(box+"/{box_id}", basicAuth(getInfo(handleSingleItem(box)))).Methods(http.MethodGet)
 
-	router.Handle(box+"/{box_id}/qr", basicAuth(generateQR())).Methods(http.MethodGet)
+	router.Handle(box+"/{box_id}/qr", getInfo(generateQR())).Methods(http.MethodGet)
 
 	log.Println("Available routes:")
 	router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
