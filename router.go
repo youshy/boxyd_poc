@@ -11,12 +11,17 @@ import (
 func NewRouter() *mux.Router {
 	router := mux.NewRouter()
 
+	// Box Routes
 	box := "/box"
-
 	router.Handle(box+"/{box_id}", basicAuth(getInfo(handleSingleItem(box)))).Methods(http.MethodGet)
-
 	router.Handle(box+"/{box_id}/qr", getInfo(generateQR(false))).Methods(http.MethodGet)
 	router.Handle(box+"/{box_id}/qrsmall", getInfo(generateQR(true))).Methods(http.MethodGet)
+
+	// Gear Routes
+	gear := "/gear"
+	router.Handle(gear+"/{gear_id}", basicAuth(getInfo(handleSingleItem(gear)))).Methods(http.MethodGet)
+	router.Handle(gear+"/{gear_id}/qr", getInfo(generateQR(false))).Methods(http.MethodGet)
+	router.Handle(gear+"/{gear_id}/qrsmall", getInfo(generateQR(true))).Methods(http.MethodGet)
 
 	log.Println("Available routes:")
 	router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
